@@ -34,13 +34,3 @@ Verify url="http....."
   ./balancer-manager.py -l
   ./balancer-manager.py -w ajp://10.152.45.1:8001 -a enable
 ```
-
-#restoreDirMailbox.pl
-
-Can restore a directory from a backup into an account.
-Restore an account in account_bak, copy a directory into account and delete account_bak.
-
-##Example of use:
-```bash
-  restoreDirMailbox.pl <account@domain.com> <LabelBackup> <dir/subdir...>
-```
