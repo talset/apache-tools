@@ -1,0 +1,46 @@
+apache-tools
+===========
+
+Scripts Apache
+
+#balancer-manager.py
+
+ Allow you to manage Worker/BalancerMember defined in your apache2 mod_proxy conf : 
+
+```bash
+    <Proxy balancer://tomcatservers>
+        BalancerMember ajp://10.152.45.1:8001 route=web1 retry=60
+        BalancerMember ajp://10.152.45.2:8001 route=web2 retry=60
+    </Proxy>
+```
+
+You have to allow /balancer-manager
+Like :
+```bash
+ ProxyPass /balancer-manager !
+ <Location /balancer-manager>
+   SetHandler balancer-manager
+   Order Deny,Allow
+   Deny from all
+   Allow from 127.0.0.1
+ </Location>
+```
+
+Verify url="http....."
+
+##Example of use:
+
+```bash
+  ./balancer-manager.py -l
+  ./balancer-manager.py -w ajp://10.152.45.1:8001 -a enable
+```
+
+#restoreDirMailbox.pl
+
+Can restore a directory from a backup into an account.
+Restore an account in account_bak, copy a directory into account and delete account_bak.
+
+##Example of use:
+```bash
+  restoreDirMailbox.pl <account@domain.com> <LabelBackup> <dir/subdir...>
+```
