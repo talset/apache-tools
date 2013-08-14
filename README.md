@@ -28,6 +28,11 @@ Like :
 
 Verify url="http....."
 
+##Dependency
+```bash
+   apt-get install python-argparse
+```
+
 ##Example of use:
 
 ```bash
