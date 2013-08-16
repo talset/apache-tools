@@ -17,6 +17,7 @@ Scripts Apache
 You have to allow /balancer-manager
 Like :
 ```bash
+ #RewriteCond %{REQUEST_URI} !=/balancer-manager
  ProxyPass /balancer-manager !
  <Location /balancer-manager>
    SetHandler balancer-manager
