@@ -27,7 +27,14 @@ Like :
  </Location>
 ```
 
-Verify url="http....."
+Fix if necessary :
+```bash
+#vhostname
+headers = {"Host": '127.0.0.1' }
+#ip to reach apache
+url="http://127.0.0.1/balancer-manager"
+```
+
 
 ##Dependency
 ```bash

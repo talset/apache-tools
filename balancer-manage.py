@@ -27,9 +27,10 @@
 #./balancer-manager.py -w ajp://10.152.45.1:8001 -a enable
 
 import argparse
-import urllib
 import re
 import HTMLParser
+from urllib import urlencode
+from urllib2 import Request, urlopen
 
 # Get args
 PARSER = argparse.ArgumentParser()
@@ -42,10 +43,14 @@ PARSER.add_argument("-w", "--worker",
 ARGS = PARSER.parse_args()
 
 #Fix if necessary
+#vhostname
+headers = {"Host": '127.0.0.1' }
+#ip to reach apache
 url="http://127.0.0.1/balancer-manager"
 
 def balancer_status():
-    f = urllib.urlopen(url)
+    req = Request(url, None, headers)
+    f = urlopen(req)
     #print f.read()
 
     class TableParser(HTMLParser.HTMLParser):
@@ -80,15 +85,19 @@ def balancer_status():
 
 
 def balancer_manage(action, worker):
-    f = urllib.urlopen(url)
+    #Read informations
+    req = Request(url, None, headers)
+    f = urlopen(req)
     
-    #Generate URL
+    #Find balancer and nonce
     result = re.search("b=([^&]+)&w="+worker+"&nonce=([^\"]+)", f.read())
     if result is not None:
         balancer = result.group(1)
         nonce = result.group(2)
-    params = urllib.urlencode({'b': balancer, 'w': worker, 'dw': action, 'nonce': nonce})
-    f = urllib.urlopen(url+"?%s" % params)
+    #Generate URL
+    params = urlencode({'b': balancer, 'w': worker, 'dw': action, 'nonce': nonce})
+    req = Request(url+"?%s" % params, None, headers)
+    f = urlopen(req)
     print "Action\n    Worker %s [%s]\n\nStatus" % (worker,action)
     balancer_status()
     
