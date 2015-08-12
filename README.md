@@ -27,9 +27,9 @@ Like :
  </Location>
 ```
 
-Fix if necessary :
+If necessary, fix in the script :
 ```bash
-#vhostname
+#host header
 headers = {"Host": '127.0.0.1' }
 #ip to reach apache
 url="http://127.0.0.1/balancer-manager"
@@ -41,8 +41,23 @@ url="http://127.0.0.1/balancer-manager"
    apt-get install python-argparse
 ```
 
-##Example of use:
+##Usages
 
+Help :
+```bash
+balancer-manage.py 
+usage: balancer-manage.py [-h] [-l] [-a ACTION] [-w WORKER]
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -l, --list            List Worker member and status
+  -a ACTION, --action ACTION
+                        "enable" or "disable" the specified Worker
+  -w WORKER, --worker WORKER
+                        Worker name : example ajp://127.0.0.1:8001
+```
+
+Exemple :
 ```bash
   ./balancer-manager.py -l
   ./balancer-manager.py -w ajp://10.152.45.1:8001 -a enable
